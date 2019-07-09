@@ -41,6 +41,10 @@ public class wrmhlRead : MonoBehaviour {
 
     public ShipController sc;
 
+    bool fireAndShieldLevier = false;
+    bool hasFtled = false;
+    bool shieldUp = false;
+    bool blowing = false;
     //Encodeur Rotatif pour les armes
     int storedValueWeapon;
     //Encodeur Rotatif pour l'énergie
@@ -63,7 +67,7 @@ public class wrmhlRead : MonoBehaviour {
             switch (SplitedText[i])
             {                
                 //---------------------------------------------------------------------------------------
-                //Branchement
+                //Branchement : tout se fait avec les câbles
                 case "StationWeaponOn:":
                     sc.stationWeaponConnected = true;
                     break;
@@ -116,7 +120,7 @@ public class wrmhlRead : MonoBehaviour {
                     int ValuePotY = int.Parse(SplitedText[i + 1]);
                     sc.ConvertedPotY(ValuePotY, 1024);
                     break;
-                //Station Coordonnée en
+                //Station Coordonnée end
                 //----------------------------------------------------------------------------------
                 //Station Combat
                 //Codeur Rotatif!!!
@@ -126,26 +130,57 @@ public class wrmhlRead : MonoBehaviour {
                     {
                         Debug.Log("charge weapon");
                         storedValueWeapon = actualValue;
+                        sc.ChargeWeapon();
                     }
                     else
                     {
                         storedValueWeapon = actualValue;
                         Debug.Log("not charging weapon");
-
                     }
                     break;
+
+                // bouton
                 case "FireWeaponOn:":
+                    if (fireAndShieldLevier == false)
+                    {
+                        if (shieldUp == false)
+                        {
+                            sc.FireWeapon();
+                            fireAndShieldLevier = true;
+                        }
+                        else
+                        {
+                            fireAndShieldLevier = true;
+                            shieldUp = true;
+                            sc.playerActivatedshield = shieldUp;
+                        }
+                        
+                    }
                     break;
                 case "FireWeaponOff:":
+                    if (fireAndShieldLevier == true)
+                    {
+                        fireAndShieldLevier = false;
+                        shieldUp = false;
+                        sc.playerActivatedshield = shieldUp;
+                    }
                     break;
+                //Bouton
                 case "ChooseWeaponOne:":
+                    sc.weaponUsed = WeaponUsed.One;
                     break;
+                //Bouton
                 case "ChooseWeaponTwo:":
+                    sc.weaponUsed = WeaponUsed.Two;
                     break;
+                //Bouton
                 case "ShieldConnected:":
+                    shieldUp = true;
                     break;
-                case "ShieldUnConnected:":
+                case "ShieldDisconnected:":
+                    shieldUp = false;
                     break;
+                //Potentiometre
                 case "ShieldOrientation:":
                     int ValOrShield = int.Parse(SplitedText[i + 1]);
                     sc.ConvertedOrientationShield(ValOrShield, 1024);
@@ -153,11 +188,13 @@ public class wrmhlRead : MonoBehaviour {
                 //Station Combat end
                 //---------------------------------------------------------------------------------
                 //Station Moteur
+                //Codeur Rotatif
                 case "ChargeEnergy:":
                     int actualValueEnergy = int.Parse(SplitedText[i + 1]);
                     if (actualValueEnergy != storedValueEnergy)
                     {
                         Debug.Log("charge");
+                        sc.ChargeEnergy();
                         storedValueEnergy = actualValueEnergy;
                     }
                     else
@@ -167,21 +204,46 @@ public class wrmhlRead : MonoBehaviour {
 
                     }
                     break;
-                case "Ftl:":
+
+                //bouton
+                case "FtlOn:":
+                    hasFtled = true;
                     break;
                 case "FtlOff:":
+                    hasFtled = false;
                     break;
+
+                //Bouton
                 case "MotorOn:":
+                    if (sc.stationMotorConnected == true)
+                    {
+                        sc.MoveShip();
+                    }
+                    sc.MoveShip();
+
                     break;
                 case "MotorOff:":
+                    sc.playerActivatedMotor = false;
                     break;
+
+                //Micro
                 case "BlowOn:": //not blowjob dude
+                    if (blowing == false)
+                    {
+                        blowing = true;
+                    }
                     break;
                 case "BlowOff:":
+                    if (blowing == true)
+                    {
+                        blowing = false;
+                    }
                     break;
                 //Station Moteur End
 
             }
+
+            sc.playerIsBlowing = blowing;
             //Tes Fonctions tes conditions
             //print(SplitedText[i]);
         }

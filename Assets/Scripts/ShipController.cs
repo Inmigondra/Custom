@@ -32,9 +32,9 @@ public class ShipController : MonoBehaviour {
    
     [Header("Parameters For Game")]
     public float speedPoint;
-    [Range(-20,35)]
+    [Range(0,65)]
     public float xPoint;
-    [Range(-18, 18)]
+    [Range(0, 30)]
     public float yPoint;
     [Range(0.1f, 15)]
     public float rotationSpeed;
@@ -44,6 +44,7 @@ public class ShipController : MonoBehaviour {
     public int xJump;
     [Range(-10, 10)]
     public int yJump;
+    public float zRotation;
 
     public int xRandomJump;
     public int yRandomJump;
@@ -54,6 +55,14 @@ public class ShipController : MonoBehaviour {
     public bool stationMotorConnected = false;
     public bool stationInfoConnected = false;
 
+    bool stationWeaponHazard = false;
+    bool stationutilitaryHazard = false;
+    bool stationMotorHazard = false;
+
+    public bool playerIsBlowing = false;
+    public bool playerActivatedshield = false;
+    public bool playerActivatedMotor = false;
+    bool blowCoroutineStarted = false;
 
     public KeyCode keyMove;
     public KeyCode chargeWeapon;
@@ -70,17 +79,23 @@ public class ShipController : MonoBehaviour {
     public float ConvertedPotX(int value, int max)
     {
         float converted = (value / max);
-        return converted;
+        float convertedTwo = converted * 65;
+        xPoint = convertedTwo;
+        return convertedTwo;
     }
     public float ConvertedPotY(int value, int max)
     {
         float converted = (value / max);
-        return converted;
+        float convertedTwo = converted * 30;
+        yPoint = convertedTwo;
+        return convertedTwo;
     }   
     public float ConvertedOrientationShield(int value, int max)
     {
         float converted = (value / max);
-        return converted;
+        float convertedTwo = converted * 360;
+        zRotation = convertedTwo;
+        return convertedTwo;
     }
     private void Awake()
     {
@@ -107,7 +122,6 @@ public class ShipController : MonoBehaviour {
                     if (Input.GetKeyDown(keyMove))
                     {
                         StartCoroutine(EnergyMovementDown());
-
                     }
                 }
                 break;
@@ -173,26 +187,44 @@ public class ShipController : MonoBehaviour {
 
        if (Input.GetKeyDown(blowKey))
         {
+            playerIsBlowing = true;
             StartCoroutine(CoolTheHeat());
         }
+        else if (Input.GetKeyUp(blowKey)){
+            playerIsBlowing = false;
+        }
+
+       //----------------ARDUINO--------------------------------
+
+       if (playerIsBlowing == true && blowCoroutineStarted == false)
+        {
+            StartCoroutine(CoolTheHeat());
+            blowCoroutineStarted = true;
+        }
+
+       if (playerActivatedshield == true && shieldActive == false)
+        {
+            StartCoroutine(ShieldUp());
+        }
+
 	}
     //a setup pour du potentiomètre (0;1024)
     //X [-20;32]
     //Y [-18;20]
     public void SetMovePoint()
     {
-        if (Input.GetButton("Horizontal"))
-        {
-            xPoint += Input.GetAxis("Horizontal") * speedPoint;
-            //xPoint = (int)xPoint;
-            xPoint = Mathf.Clamp(xPoint, -20, 32);
-        }
-        if (Input.GetButton("Vertical"))
-        {
-            yPoint += Input.GetAxis("Vertical") * speedPoint;
-            //yPoint = (int)yPoint;
-            yPoint = Mathf.Clamp(yPoint, -18, 18);
-        }
+        /* if (Input.GetButton("Horizontal"))
+         {
+             xPoint += Input.GetAxis("Horizontal") * speedPoint;
+             //xPoint = (int)xPoint;
+             xPoint = Mathf.Clamp(xPoint, 0, 65);
+         }
+         if (Input.GetButton("Vertical"))
+         {
+             yPoint += Input.GetAxis("Vertical") * speedPoint;
+             //yPoint = (int)yPoint;
+             yPoint = Mathf.Clamp(yPoint, 0, 30);
+         }*/
         pointDestination.transform.position = new Vector2(xPoint, yPoint);
     }
     public void MoveShip()
@@ -207,6 +239,12 @@ public class ShipController : MonoBehaviour {
 
             transform.position = Vector3.MoveTowards(transform.position, pointDestination.transform.position, shipSpeed);
             //energiePoint -= 3;
+        }
+        if (playerActivatedMotor == false)
+        {
+            playerActivatedMotor = true;
+            StartCoroutine(EnergyMovementDown());
+            
         }
         Debug.Log("LAMA");
     }
@@ -310,12 +348,12 @@ public class ShipController : MonoBehaviour {
     private IEnumerator EnergyMovementDown ()
     {
 
-        while (Input.GetKey(keyMove))
+        while (playerActivatedMotor == true)
         {
             Debug.Log("ntm");
             energiePoint -= 2;
             yield return new WaitForSeconds(1);
-            if (Input.GetKeyUp(keyMove))
+            if (playerActivatedMotor == false)
             {
                 yield break;
             }
@@ -352,10 +390,15 @@ public class ShipController : MonoBehaviour {
     }
     private IEnumerator CoolTheHeat()
     {
-        while (Input.GetKey(blowKey))
+        while (playerIsBlowing == true)
         {
             heatPoint -= 10;
             yield return new WaitForSeconds(1.5f);
+        }
+        if (playerIsBlowing == false)
+        {
+            blowCoroutineStarted = false;
+            yield break;
         }
     }
 
