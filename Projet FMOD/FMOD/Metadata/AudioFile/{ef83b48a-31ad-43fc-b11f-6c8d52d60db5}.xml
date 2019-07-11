@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{ef83b48a-31ad-43fc-b11f-6c8d52d60db5}">
+        <property name="assetPath">
+            <value>Blip_Select13.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>0.42963718820861679</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{364695d4-6c6c-4593-a17c-cbeed5b2d3d9}</destination>
+        </relationship>
+    </object>
+</objects>

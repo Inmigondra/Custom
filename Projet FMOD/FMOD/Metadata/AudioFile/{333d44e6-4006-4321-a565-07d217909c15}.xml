@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{333d44e6-4006-4321-a565-07d217909c15}">
+        <property name="assetPath">
+            <value>SPACESHIP-INTERIORS-ALARM-7.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>96</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>72.893812499999996</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{364695d4-6c6c-4593-a17c-cbeed5b2d3d9}</destination>
+        </relationship>
+    </object>
+</objects>

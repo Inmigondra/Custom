@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{9737e779-c6c5-4866-873a-f927f380f09d}">
+        <property name="assetPath">
+            <value>phone-off-hook-1.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>10.005333333333333</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{364695d4-6c6c-4593-a17c-cbeed5b2d3d9}</destination>
+        </relationship>
+    </object>
+</objects>

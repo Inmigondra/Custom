@@ -13,3 +13,30 @@ obj/
 
 # OS generated
 .DS_Store
+
+
+#FMOD AND SOUNDS
+*.wav
+*.wav.meta
+*.psd
+*.db
+*.cache
+*.psd.meta
+
+log-filter.txt
+logcat-filter.txt
+
+# FMOD
+Assets/FMODStudioCache.asset
+Assets/FMODStudioCache.asset.meta
+fmod.log
+fmod_editor.log
+*.log
+
+# FMOD studio (In folder FMOD)
+Projet FMOD/FMOD .user
+Projet FMOD/FMOD .unsaved
+Projet FMOD/FMOD .cache
+Projet FMOD/FMOD .restore
+*.reapeaks
+SON/GameSounds.xyz - Royalty free or public domain game music and sounds.url
