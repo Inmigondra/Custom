@@ -164,7 +164,7 @@ namespace FMODUnity
             HandleGameEvent(EmitterGameEvent.MouseUp);
         }
 
-        void HandleGameEvent(EmitterGameEvent gameEvent)
+        public void HandleGameEvent(EmitterGameEvent gameEvent)
         {
             if (PlayEvent == gameEvent)
             {

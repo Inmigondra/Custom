@@ -99,6 +99,13 @@ namespace FMODUnity
         MouseExit,
         MouseDown,
         MouseUp,
+        StationBoutton,
+        StationManivelle,
+        StationPowerup,
+        StationPowerdown,
+        AlarmeEnnemi,
+        AlarmeInfo,
+        AlarmeVaisseau
     }
 
     public enum LoaderGameEvent
