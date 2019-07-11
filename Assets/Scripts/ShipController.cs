@@ -54,10 +54,11 @@ public class ShipController : MonoBehaviour {
     public bool stationUtilitaryConnected = false;
     public bool stationMotorConnected = false;
     public bool stationInfoConnected = false;
+    public bool stationShieldConnected = false;
 
-    bool stationWeaponHazard = false;
-    bool stationutilitaryHazard = false;
-    bool stationMotorHazard = false;
+    public bool stationWeaponHazard = false;
+    public bool stationutilitaryHazard = false;
+    public bool stationMotorHazard = false;
 
     public bool playerIsBlowing = false;
     public bool playerActivatedshield = false;
@@ -79,16 +80,15 @@ public class ShipController : MonoBehaviour {
     public float ConvertedPotX(int value, int max)
     {
         float converted = (value / max);
-        float convertedTwo = converted * 65;
-        xPoint = convertedTwo;
-        return convertedTwo;
+        float convertedTwo = converted * 45;
+        return converted;
     }
     public float ConvertedPotY(int value, int max)
     {
         float converted = (value / max);
-        float convertedTwo = converted * 30;
+        float convertedTwo = converted * 26;
         yPoint = convertedTwo;
-        return convertedTwo;
+        return yPoint;
     }   
     public float ConvertedOrientationShield(int value, int max)
     {
@@ -153,7 +153,6 @@ public class ShipController : MonoBehaviour {
                 else
                 {
                     isSettingJump = false;
-                    Debug.Log("lama");
                 }
 
                 if (Input.GetKeyDown(keyMove))
@@ -246,7 +245,6 @@ public class ShipController : MonoBehaviour {
             StartCoroutine(EnergyMovementDown());
             
         }
-        Debug.Log("LAMA");
     }
     public void HeatToHazard ()
     {
@@ -277,7 +275,7 @@ public class ShipController : MonoBehaviour {
     }
     public void ShieldRotation()
     {
-        shield.transform.Rotate(Vector3.forward * speedPoint * Time.deltaTime);
+        shield.transform.rotation = Quaternion.Euler(0,0, zRotation);
     }
     public void Repair()
     {
@@ -313,6 +311,20 @@ public class ShipController : MonoBehaviour {
         {
             hazardPoint += 20;
         }
+    }
+    public void RepairHazard (int toRepair)
+    {
+        if (toRepair == 0){
+            bool stationWeaponHazard = false;
+        }
+        if (toRepair == 1){
+            bool stationutilitaryHazard = false;
+        }
+        if (toRepair == 2){
+         bool stationMotorHazard = false;
+            
+        }
+        
     }
     private IEnumerator HeatLoss()
     {
@@ -350,7 +362,6 @@ public class ShipController : MonoBehaviour {
 
         while (playerActivatedMotor == true)
         {
-            Debug.Log("ntm");
             energiePoint -= 2;
             yield return new WaitForSeconds(1);
             if (playerActivatedMotor == false)

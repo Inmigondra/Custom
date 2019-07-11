@@ -45,6 +45,10 @@ public class wrmhlRead : MonoBehaviour {
     bool hasFtled = false;
     bool shieldUp = false;
     bool blowing = false;
+    bool repairingMecaCoordonnee = false; 
+
+
+    int numberRepair = 0;
     //Encodeur Rotatif pour les armes
     int storedValueWeapon;
     //Encodeur Rotatif pour l'énergie
@@ -113,12 +117,38 @@ public class wrmhlRead : MonoBehaviour {
                     //print(SplitedText[i+1]);
                     break;
                 case "ValPotX:":
-                    int ValuePotX = int.Parse(SplitedText[i + 1]);
-                    sc.ConvertedPotX(ValuePotX, 1024);
+                    float ValuePotX = float.Parse(SplitedText[i + 1]);
+                    //sc.xPoint = sc.ConvertedPotX(ValuePotX, 1024) * 65;
+                    sc.xPoint = (ValuePotX/1024) * 45; 
+                    //sc.xPoint = i+1
                     break;
                 case "ValPotY:":
-                    int ValuePotY = int.Parse(SplitedText[i + 1]);
-                    sc.ConvertedPotY(ValuePotY, 1024);
+                    float ValuePotY = float.Parse(SplitedText[i + 1]);
+                    //sc.ConvertedPotY(ValuePotY, 1024);
+                    sc.yPoint = (ValuePotY/1024) * 26;
+                    break;
+
+                    case "RepairMecaCoordonneeOn:" :
+                        if (repairingMecaCoordonnee == false){
+                            repairingMecaCoordonnee = true;
+                            numberRepair += 1;
+                        }
+                        if (numberRepair >= 3){
+                            sc.RepairHazard(1);
+                            numberRepair = 0;
+                        }
+                    break;
+
+                    case "RepairMecaCoordonneeOff:" :
+                        repairingMecaCoordonnee = false;
+
+                    break;
+
+                    case "RepairElecCoordonneOn:" :
+
+                    break;
+                    case "RepairElecCoordonneOff:" :
+
                     break;
                 //Station Coordonnée end
                 //----------------------------------------------------------------------------------
@@ -138,9 +168,10 @@ public class wrmhlRead : MonoBehaviour {
                         Debug.Log("not charging weapon");
                     }
                     break;
-
+                
+                
                 // bouton
-                case "FireWeaponOn:":
+                case "FireWeaponOn":
                     if (fireAndShieldLevier == false)
                     {
                         if (shieldUp == false)
@@ -157,7 +188,7 @@ public class wrmhlRead : MonoBehaviour {
                         
                     }
                     break;
-                case "FireWeaponOff:":
+                case "FireWeaponOff":
                     if (fireAndShieldLevier == true)
                     {
                         fireAndShieldLevier = false;
@@ -166,25 +197,35 @@ public class wrmhlRead : MonoBehaviour {
                     }
                     break;
                 //Bouton
-                case "ChooseWeaponOne:":
+                case "ChooseWeaponOne":
                     sc.weaponUsed = WeaponUsed.One;
                     break;
                 //Bouton
-                case "ChooseWeaponTwo:":
+                case "ChooseWeaponTwo":
                     sc.weaponUsed = WeaponUsed.Two;
                     break;
                 //Bouton
-                case "ShieldConnected:":
-                    shieldUp = true;
+                case "ShieldConnected":
+                    if (shieldUp == false){
+                        sc.shieldActive = true;
+                        shieldUp = true;
+                    }
                     break;
-                case "ShieldDisconnected:":
+                case "ShieldDisconnected":
                     shieldUp = false;
                     break;
                 //Potentiometre
                 case "ShieldOrientation:":
-                    int ValOrShield = int.Parse(SplitedText[i + 1]);
-                    sc.ConvertedOrientationShield(ValOrShield, 1024);
+                    float ValOrShield = float.Parse(SplitedText[i + 1]);
+                    //sc.ConvertedOrientationShield(ValOrShield, 1024);
+                    sc.zRotation = (ValOrShield/1024) * 360;
                     break;
+
+                case "RepairBattleOn" :
+                break;
+                
+                case "RepairBattleOff" :
+                break;
                 //Station Combat end
                 //---------------------------------------------------------------------------------
                 //Station Moteur
@@ -239,6 +280,12 @@ public class wrmhlRead : MonoBehaviour {
                         blowing = false;
                     }
                     break;
+
+                case "RepairMotorOn:" :
+                break;
+                
+                case "RepairMotorOff:" :
+                break;
                 //Station Moteur End
 
             }

@@ -19,9 +19,10 @@ public class BarManager : MonoBehaviour {
     [Range(0, 1)]
     public float weaponFill;
 
-    public Image jumpBar;
+    /* public Image jumpBar;
     [Range(0, 1)]
-    public float jumpFill;
+    public float jumpFill;*/
+
     public ShipController sC;
 
     public Text xToJumpText;
@@ -35,6 +36,13 @@ public class BarManager : MonoBehaviour {
 
     public Text ySetToJumpText;
     public int ySetToJump;
+
+    public GameObject motorOnObject, motorOffObject, motorFailObject;
+    public GameObject coordOnObject, coordOffObject, coordFailObject;
+    public GameObject weaponOnObject, weaponOffObject, weaponFailObject;
+    public GameObject shieldOnObject, shieldOffObject, shieldFailObject;
+
+
 
     float HealthFillSet()
     {
@@ -56,11 +64,11 @@ public class BarManager : MonoBehaviour {
         float converted = (float)sC.weaponJauge / 100f;
         return converted;
     }
-    float JumpFillSet()
+    /*float JumpFillSet()
     {
         float converted = (float)sC.jumpJauge / 100f;
         return converted;
-    }
+    }*/
     // Use this for initialization
     void Start () {
 
@@ -72,14 +80,14 @@ public class BarManager : MonoBehaviour {
         energyFill = EnergyFillSet();
         heatFill = HeatFillSet();
         weaponFill = WeaponFillSet();
-        jumpFill = JumpFillSet();
+        //jumpFill = JumpFillSet();
 
 
         healthBar.fillAmount = healthFill;
         energyBar.fillAmount = energyFill;
         heatBar.fillAmount = heatFill;
         weaponBar.fillAmount = weaponFill;
-        jumpBar.fillAmount = jumpFill;
+        //jumpBar.fillAmount = jumpFill;
 
         xToJump = sC.xRandomJump;
         SetText(xToJumpText, xToJump);
@@ -93,7 +101,84 @@ public class BarManager : MonoBehaviour {
         ySetToJump = sC.yJump;
         SetText(ySetToJumpText, ySetToJump);
 
+        //Utilitary
+        if (sC.stationUtilitaryConnected == true && sC.stationutilitaryHazard == false){
+            coordOnObject.SetActive(true);
+            coordOffObject.SetActive(false);
+            coordFailObject.SetActive(false);
 
+        }else if (sC.stationUtilitaryConnected == false && sC.stationutilitaryHazard == false){
+            coordOnObject.SetActive(false);
+            coordOffObject.SetActive(true);
+            coordFailObject.SetActive(false);
+
+        }else if (sC.stationutilitaryHazard == true){
+            coordOnObject.SetActive(false);
+            coordOffObject.SetActive(false);
+            coordFailObject.SetActive(true);
+        }
+        //Weapon & shield
+        if (sC.stationWeaponConnected == true && sC.stationShieldConnected == false && sC.stationWeaponHazard == false){
+            weaponOnObject.SetActive(true);
+            weaponOffObject.SetActive(false);
+            weaponFailObject.SetActive(false);
+
+            shieldOnObject.SetActive(false);
+            shieldOffObject.SetActive(true);
+            shieldFailObject.SetActive(false);
+        }else if (sC.stationWeaponConnected == false && sC.stationShieldConnected == true && sC.stationWeaponHazard == false){
+            weaponOnObject.SetActive(false);
+            weaponOffObject.SetActive(true);
+            weaponFailObject.SetActive(false);
+
+
+            shieldOnObject.SetActive(false);
+            shieldOffObject.SetActive(true);
+            shieldFailObject.SetActive(false);
+
+        }else if (sC.stationWeaponHazard == true){
+            weaponOnObject.SetActive(false);
+            weaponOffObject.SetActive(false);
+            weaponFailObject.SetActive(true);
+
+
+            shieldOnObject.SetActive(false);
+            shieldOffObject.SetActive(false);
+            shieldFailObject.SetActive(true);
+        }
+        if (sC.stationWeaponConnected == false && sC.stationWeaponHazard == false){
+            weaponOnObject.SetActive(false);
+            weaponOffObject.SetActive(true);
+            weaponFailObject.SetActive(false);
+
+        }
+        if (sC.stationShieldConnected == true && sC.stationWeaponConnected == true && sC.stationWeaponHazard == false){
+            weaponOnObject.SetActive(false);
+            weaponOffObject.SetActive(true);
+            weaponFailObject.SetActive(false);
+
+
+            shieldOnObject.SetActive(true);
+            shieldOffObject.SetActive(false);
+            shieldFailObject.SetActive(false);
+
+        }
+
+        //Motor
+        if (sC.stationMotorConnected == true && sC.stationMotorHazard == false){
+            motorOnObject.SetActive(true);
+            motorOffObject.SetActive(false);
+            motorFailObject.SetActive(false);
+
+        }else if (sC.stationMotorConnected == false && sC.stationMotorHazard == false){
+            motorOnObject.SetActive(false);
+            motorOffObject.SetActive(true);
+            motorFailObject.SetActive(false);
+        }else if (sC.stationMotorHazard == true){
+            motorOnObject.SetActive(false);
+            motorOffObject.SetActive(false);
+            motorFailObject.SetActive(true);
+        }
     }
     /// <summary>
     /// 
