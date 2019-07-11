@@ -93,13 +93,13 @@
             <value>true</value>
         </property>
         <property name="length">
-            <value>2</value>
+            <value>1.74</value>
         </property>
         <property name="volume">
             <value>5</value>
         </property>
         <property name="pitch">
-            <value>8.5</value>
+            <value>3.20000005</value>
         </property>
         <relationship name="modulators">
             <destination>{6b8fdab4-4155-423c-9725-cfb4c63d1b6f}</destination>
@@ -118,7 +118,7 @@
     </object>
     <object class="EventMixerGroup" id="{1edba09e-bcea-456c-919b-6d709f9535e0}">
         <property name="volume">
-            <value>5</value>
+            <value>7.5</value>
         </property>
         <property name="name">
             <value>Audio 1</value>
@@ -138,7 +138,7 @@
             <value>0</value>
         </property>
         <property name="length">
-            <value>2.04</value>
+            <value>1.8600000000000001</value>
         </property>
         <relationship name="timeline">
             <destination>{c6a00a9f-1e6d-4201-9819-03a6ba12dad6}</destination>
@@ -159,7 +159,7 @@
             <value>pitch</value>
         </property>
         <property name="amount">
-            <value>25.5</value>
+            <value>20.5</value>
         </property>
     </object>
     <object class="FadeCurve" id="{b94646f4-f5a9-4225-928e-b123167a4b3d}">
@@ -222,7 +222,7 @@
     </object>
     <object class="AutomationPoint" id="{ec64c6d7-376d-49c0-a3fd-933159431d33}">
         <property name="position">
-            <value>0</value>
+            <value>1.3400000000000001</value>
         </property>
         <property name="value">
             <value>1</value>
@@ -233,7 +233,7 @@
     </object>
     <object class="AutomationPoint" id="{056ee878-9497-4422-a449-2464a8d867ac}">
         <property name="position">
-            <value>2</value>
+            <value>1.74</value>
         </property>
         <property name="value">
             <value>0</value>

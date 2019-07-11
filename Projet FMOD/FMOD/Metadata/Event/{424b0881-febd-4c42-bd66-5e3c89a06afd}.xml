@@ -5,7 +5,7 @@
             <value>Ambiance</value>
         </property>
         <property name="outputFormat">
-            <value>5</value>
+            <value>1</value>
         </property>
         <relationship name="folder">
             <destination>{57538f3d-e663-48ee-884f-9fbc878f3843}</destination>
@@ -105,8 +105,11 @@
         <property name="length">
             <value>27.5</value>
         </property>
+        <property name="volume">
+            <value>10</value>
+        </property>
         <property name="pitch">
-            <value>-18.5</value>
+            <value>-14.5</value>
         </property>
         <property name="looping">
             <value>true</value>
@@ -117,7 +120,7 @@
     </object>
     <object class="EventMixerGroup" id="{11ceb237-30e4-49a8-9703-79cfe6b446e0}">
         <property name="volume">
-            <value>-0.5</value>
+            <value>4</value>
         </property>
         <property name="name">
             <value>Audio 1</value>
@@ -160,7 +163,7 @@
     </object>
     <object class="EventMixerGroup" id="{23388ed6-24fc-4b6a-881f-5fe08c6d9268}">
         <property name="volume">
-            <value>-32</value>
+            <value>-10</value>
         </property>
         <property name="name">
             <value>Audio 2</value>
@@ -194,7 +197,14 @@
             <destination>{fd75f342-b5e4-41d7-8710-af1096f22ac3}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{528c236c-3f8b-471d-917a-8035e7875e93}"/>
+    <object class="MixerBusPanner" id="{528c236c-3f8b-471d-917a-8035e7875e93}">
+        <property name="overridingOutputFormat">
+            <value>1</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{32cf25a3-0cfd-4a94-aeb1-96fc03361a7b}"/>
     <object class="MixerBusEffectChain" id="{c1f9eec8-72eb-4132-8ed2-be6cab5610f6}">
         <relationship name="effects">
@@ -206,7 +216,11 @@
             <destination>{52bcf9d5-b8b6-4745-ba76-1bac60f350a2}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{8d4216cf-66bf-48d0-89e9-926efd15ffcf}"/>
+    <object class="MixerBusPanner" id="{8d4216cf-66bf-48d0-89e9-926efd15ffcf}">
+        <property name="stereoPan">
+            <value>100</value>
+        </property>
+    </object>
     <object class="FadeCurve" id="{8a1a32a8-062f-4a1f-bfad-7eb9bc19dba8}">
         <relationship name="startPoint">
             <destination>{a39bac7a-703d-4d32-8e1d-bc6b78758e7a}</destination>
@@ -239,7 +253,17 @@
             <destination>{9fa0c59b-0dac-40b3-ade6-3597fc371708}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{ca4351e1-82c7-4e49-b46c-3df13caba11c}"/>
+    <object class="MixerBusPanner" id="{ca4351e1-82c7-4e49-b46c-3df13caba11c}">
+        <property name="stereoPan">
+            <value>-100</value>
+        </property>
+        <property name="overridingOutputFormat">
+            <value>1</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{fd75f342-b5e4-41d7-8710-af1096f22ac3}"/>
     <object class="ChorusEffect" id="{329dc37c-b442-4166-979e-77cb42ce529d}">
         <property name="rate">
@@ -291,7 +315,13 @@
     <object class="MixerBusFader" id="{0d19000c-9e14-4dd2-a9ef-44371a0d15f1}"/>
     <object class="CompressorEffect" id="{52bcf9d5-b8b6-4745-ba76-1bac60f350a2}">
         <property name="threshold">
-            <value>-22</value>
+            <value>-20.5</value>
+        </property>
+        <property name="ratio">
+            <value>3.29999971</value>
+        </property>
+        <property name="gain">
+            <value>9.5</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{a39bac7a-703d-4d32-8e1d-bc6b78758e7a}">
